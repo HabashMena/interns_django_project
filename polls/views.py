@@ -11,6 +11,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Question
+from django.views.generic import ListView, DetailView
+from polls.models import Poll
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 # ما في داعي ارجع اكتب كلمة تيمبلت لانه تعرف عالملف خلص
@@ -26,8 +30,40 @@ def index(request):
 
 #if i want to create a new page 
 # 1-- make a new page in templetes .html
-# 2-- make a dev for it in views.py
+# 2-- make a def for it in views.py
 # 3-- make a link to this page in the urls
+
+
+# اسم الموديل بعدين الاشي الي بدي اعمله
+class PostList(ListView):
+    model=Poll
+    context_object_name = 'all_mypolls'
+    ordering=['question']
+
+# in template use object_list     or      Poll_list
+# بقدر انا اختار اسم ال context ب اتريبيوت بالموقع 
+
+
+#mixin
+#الفرق انه بضيفله behavior
+
+'''
+class PostDetail(LoginRequiredMixin, ListView):
+    model=Poll
+    context_object_name = 'all_mypolls'
+    ordering=['question']
+
+'''
+
+
+class PostCreate:
+    pass
+
+class PostDelete:
+    pass
+
+
+
 
 def about(request):
     return render(request, 'polls/about.html')

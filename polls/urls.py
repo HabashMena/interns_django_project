@@ -7,6 +7,8 @@ urlpatterns =[
     # ex: /polls/
     path("", views.index, name="index"),
 
+    path('1', views.PostList.as_view(), name='Post_List'),
+
     #path("admin/", admin.site.urls),
     # ex: /polls/5/
     path("about", views.about, name="about"),
