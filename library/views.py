@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views import View
 from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from .models import Book
 
 def book_list_fbv(request):
@@ -15,7 +16,7 @@ def signup_fbv(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  
+            return redirect('/')  
     else:
         form = UserCreationForm()
     return render(request, 'library/signup.html', {'form': form, 'view_type': 'FBV Signup'})
