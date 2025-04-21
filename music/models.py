@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class instrument(models.Model):
+class Instrument(models.Model):
     name= models.CharField(max_length=70)
     type =models.CharField(max_length=70)
 

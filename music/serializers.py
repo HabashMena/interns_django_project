@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import instrument
+from .models import Instrument
 
 class Instrument_Seri(serializers.ModelSerializer):
     class Meta:
-        model=instrument
+        model=Instrument
         fields='__all__'
         # عشان يعمل الاشي لكل الفيلدز الي عنا 
 

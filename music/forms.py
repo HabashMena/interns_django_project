@@ -1,7 +1,7 @@
 from django import forms
-from .models import instrument
+from .models import Instrument
 
 class InstrumentForm(forms.ModelForm):
     class Meta:
-        model = instrument
+        model = Instrument
         fields = ['name', 'type']
