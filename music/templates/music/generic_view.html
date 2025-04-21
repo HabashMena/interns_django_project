@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generic View</title>
+</head>
+<body>
+    <h1>Generic View - Add Instrument</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Instruments List</h2>
+    <ul>
+        {% for inst in instruments %}
+            <li>{{ inst.name }} ({{ inst.type }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
