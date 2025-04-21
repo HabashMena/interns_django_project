@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Form</title>
+    <style>
+      :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4895ef;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --success-color: #4cc9f0;
+        --error-color: #f72585;
+      }
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      
+      .form-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 100%;
+        max-width: 600px;
+        transition: all 0.3s ease;
+      }
+      
+      .form-container:hover {
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      }
+      
+      .form-title {
+        color: var(--dark-color);
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: 600;
+      }
+      
+      form p {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      form label {
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--dark-color);
+      }
+      
+      form input:not([type="submit"]),
+      form textarea,
+      form select {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+      
+      form input:focus,
+      form textarea:focus,
+      form select:focus {
+        border-color: var(--accent-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      }
+      
+      .submit-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      .submit-btn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+      
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+      
+      /* Error message styling */
+      .errorlist {
+        color: var(--error-color);
+        list-style: none;
+        margin-top: 5px;
+        font-size: 14px;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .form-container {
+          padding: 30px 20px;
+        }
+        
+        .form-title {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1 class="form-title">Submit Your Information</h1>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Form fields rendered with as_p but now styled -->
+        {{ form.as_p }}
+        
+        <input type="submit" value="Submit" class="submit-btn">
+      </form>
+    </div>
+  </body>
+</html>
