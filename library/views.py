@@ -53,7 +53,7 @@ class AddBookGBV(CreateView):
 class BookListCBV(View):
     def get(self, request):
         books = Book.objects.all()
-        return render(request, 'library/signup.html', {'books': books})
+        return render(request, 'library/book_list.html', {'books': books})
 
 class AddBookCBV(View):
     def get(self, request):
