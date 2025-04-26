@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tic Tac Toe game </title>
+
+  <!-- used this cause it links to an external CSS file for styling -->
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+  <!-- its a container for elements-->
+  <div class="game-container">
+
+    <h1>Tic Tac Toe</h1>
+
+    <!-- used this to add input fields where players will enter their names-->
+    <div id="name-input-container">
+      <label for="player-x-name">Player X's Name:</label>
+      <input type="text" id="player-x-name"  />
+      <br />
+      <label for="player-o-name">Player O's Name:</label>
+      <input type="text" id="player-o-name"  />
+      <br />
+      <button id="start-game-btn">Start Game</button>
+    </div>
+<!--a div where the game board will be shown .-->
+    <div class="board" id="board" style="display: none;"></div>
+    <div class="status" id="status">Please enter player names to start</div>
+
+    
+    <div id="pink-alert" class="pink-alert">
+      <span id="alert-message"></span>
+    </div>
+
+    <button id="reset" style="display: none;">Restart Game</button>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
