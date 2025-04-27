@@ -1,0 +1,16 @@
+pymysql
+load_dotenv
+django
+python-dotenv
+asgiref
+Django
+djangorestframework
+djangorestframework_simplejwt
+load-dotenv
+pip
+PyJWT
+PyMySQL
+python-dotenv
+rest-framework-simplejwt
+sqlparse
+tzdata
