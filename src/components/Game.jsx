@@ -1,15 +1,18 @@
-import React, { useState } from 'react';//Brings in React, and the useState hook which lets us track variables like the board and whose turn it is.
-import Board from './Board';//import the Board component (which shows the grid)
-import '../App.css';//style
+import React, { useState } from 'react';
+import Board from './Board';
+import '../App.css';
+const BOARD_SIZE = 7;
+const WIN_LENGTH = 7;
 
-function Game() /*functional component*/{
-  const [board, setBoard] = useState(Array(9).fill(null));//setBoard is used to update the board after a move.  array with 9 elements, all null at first.
+function Game() {
+  const [squares, setSquares] = useState(Array(BOARD_SIZE * BOARD_SIZE).fill(null));// Holds the state for the game board.
+  const [board, setBoard] = useState(Array(BOARD_SIZE * BOARD_SIZE).fill(null));//a state for the current board.
   const [isXNext, setIsXNext] = useState(true);//Keeps track of whose turn it is /If isXNext is true, X plays; otherwise, O plays.
 
   //This function runs when a square is clicked.
   const handleSquareClick = (index) => {
-    if (board[index] || calculateWinner(board)) return; //If the square is already taken (board[index] is not null), or if the game already has a winner, we stop — no more clicks allowed.
-
+    //if (board[index] || calculateWinner(board)) return; //If the square is already taken (board[index] is not null), or if the game already has a winner, we stop — no more clicks allowed.
+    if (board[index] || calculateWinner(board, BOARD_SIZE, WIN_LENGTH) )return;
     const newBoard = [...board];//Makes a copy of the current board using spread syntax (...).
     //In React, we avoid editing state directly, so we create a copy.
     newBoard[index] = isXNext ? 'X' : 'O';// If it’s X’s turn, place 'X' in the clicked square; otherwise, place 'O'.
@@ -17,39 +20,86 @@ function Game() /*functional component*/{
     setIsXNext(!isXNext); //Flips the player: if it was X, now it's O, and vice versa.
   };
 
-  const calculateWinner = (squares) => {
-    const lines = [
-      [0,1,2], [3,4,5], [6,7,8],
-      [0,3,6], [1,4,7], [2,5,8],
-      [0,4,8], [2,4,6]
-    ];
+  //calculateWinner checks if there is a winning line of X or O based on the current state of the board.
+  function calculateWinner(squares, size, winLength) {
+    const lines = [];//This will store all the winning lines
   
-    const winningLine = lines.find(([a, b, c]) => 
-      squares[a] && squares[a] === squares[b] && squares[a] === squares[c]
-    );//.find() goes through each sub-array ([a,b,c]) and stops at the first one that satisfies the condition.
+    // Rows
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c <= size - winLength; c++) {
+        const line = [];
+        for (let i = 0; i < winLength; i++) {
+          line.push(r * size + (c + i));
+        }
+        lines.push(line);
+      }
+    }
   
-    return winningLine ? squares[winningLine[0]] : null; //If a winning line is found (like [0, 1, 2]), winningLine becomes that array.
-  };//squares[winningLine[0]]--->This gives us who the winner is.
+    // Columns
+    for (let c = 0; c < size; c++) {
+      for (let r = 0; r <= size - winLength; r++) {
+        const line = [];
+        for (let i = 0; i < winLength; i++) {
+          line.push((r + i) * size + c);
+        }
+        lines.push(line);
+      }
+    }
+  
+    // Diagonals: top-left to bottom-right
+    for (let r = 0; r <= size - winLength; r++) {
+      for (let c = 0; c <= size - winLength; c++) {
+        const line = [];
+        for (let i = 0; i < winLength; i++) {
+          line.push((r + i) * size + (c + i));
+        }
+        lines.push(line);
+      }
+    }
+  
+    // Diagonals: top-right to bottom-left
+    for (let r = 0; r <= size - winLength; r++) {
+      for (let c = winLength - 1; c < size; c++) {
+        const line = [];
+        for (let i = 0; i < winLength; i++) {
+          line.push((r + i) * size + (c - i));
+        }
+        lines.push(line);
+      }
+    }
+  
+    // Check all lines
+    for (const line of lines) {
+      const first = squares[line[0]];
+      if (first && line.every(index => squares[index] === first)) {
+        return first;
+      }
+    }
+  
+    return null;
+  }
   
 
-  const winner = calculateWinner(board);//Runs the winner check based on the current board and stores it in winner.
-
+  
+  const winner = calculateWinner(board, BOARD_SIZE, WIN_LENGTH);//It checks whether there is a winner based on the current state of the board.
   const handleReset = () => {
     setBoard(Array(9).fill(null));
     setIsXNext(true);
   };//Resets the game by clearing the board and setting the turn back to X.
 
-  return (
-    <div className="container">
-      <h1>Tic Tac Toe</h1>
-      <Board board={board} onSquareClick={handleSquareClick} />
-      {winner ? <h2>Winner: {winner}</h2> : <h2>Next Player: {isXNext ? 'X' : 'O'}</h2>}
-      <button onClick={handleReset} className="reset-button">
-        Restart
-      </button>
+return (
+  <div className="container">
+    <div className="game">
+      <h2>{winner ? `Winner: ${winner}` : `Next Player: ${isXNext ? 'X' : 'O'}`}</h2>
+      <Board board={board} onClick={handleSquareClick} size={BOARD_SIZE} />
+      
+      {/* Reset Button */}
+      <button className="reset-button" onClick={handleReset}>Reset Game</button>
     </div>
-  );
+  </div>
+);
 }
+
 //Start of what the component shows on the screen.
 // Shows the board using the Board component.
 //Passes down the current board array and the function to handle square clicks.

@@ -1,23 +1,29 @@
-body { /* style the whole page*/
+body {
   background: linear-gradient(to right, #d8bcd3 0%, #b368ca 100%);
   font-family: 'Poppins', sans-serif;
-  min-height: 100vh;/* Makes sure the page is at least as tall as the full browser screen (even if there’s little content).*/
+  min-height: 100vh;
   margin: 0;
-  padding: 0;/* Removes default space around the body, so you have full control of layout.*/
+  padding: 0;
+  
 }
 
-.container {/* wraps the whole game*/
+.container {
+  display: flex;
+  justify-content: center;   
+  align-items: center;      
+  flex-direction: column;    
+  height: 100%;   
   text-align: center;
   padding-top: 50px;
 }
 
-h1 {/*  styles the big title*/
+h1 {
   font-size: 3rem;
   color: #333;
-  margin-bottom: 20px;/*Adds 20 pixels of space below the title so it doesn’t stick to the next section.*/
+  margin-bottom: 20px;
 }
 
-.board {/*the grid for the 9 squares*/
+.board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
   gap: 10px;
@@ -25,27 +31,25 @@ h1 {/*  styles the big title*/
   margin: 20px auto;
 }
 
-.square {/*styles for each cell*/
+.square {
   width: 100px;
   height: 100px;
   background-color: #fff;
-  /*These 3 lines center the X or O inside the square both vertically and horizontally.*/
-  /*  turns an element into a flex container. It’s a way of defining a box that can hold flexible items (like the child elements inside it). */
   display: flex;     
   align-items: center;
   justify-content: center;
-  /* Makes the X or O big and bold. */
   font-size: 2.5rem;
   font-weight: bold;
   color: #333;
   border: 2px solid #4e54c8;
-  /* Rounds the corners of the square.*/
   border-radius: 15px;
-  /* Adds a soft drop shadow to make the square pop visually. */
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transition: background-color 0.3s, transform 0.2s;
-  /* Changes the mouse cursor to a pointer when you hover — so it feels clickable.*/
   cursor: pointer;
+}
+
+.board-row {
+  display: flex;
 }
 
 .square:hover {
@@ -55,13 +59,11 @@ h1 {/*  styles the big title*/
 
 .reset-button {
   margin-top: 30px;
-  /* Makes the button larger by adding space inside */
   padding: 12px 30px;
   background-color: #ba76cf;
-  color: white;   /*text color*/
+  color: white;   
   border: none;
-  /* Rounds the button into a pill shape. */
-  border-radius: 30px;
+  border-radius: 30px; 
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
